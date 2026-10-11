@@ -1,4 +1,4 @@
-const DEFAULT_MODEL = "llama-3.1-8b-instant";
+const DEFAULT_MODEL = "openai/gpt-oss-20b";
 const MAX_HISTORY_MESSAGES = 8;
 const MAX_HISTORY_MESSAGE_CHARS = 1200;
 const MAX_ALICE_TEXT = 1024;
@@ -139,11 +139,12 @@ async function askGemini(text, history, searchContext, timeoutMs) {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${key}`
       },
-      body: JSON.stringify({
+            body: JSON.stringify({
         model,
         messages,
         temperature: 0.5,
-        max_tokens: 240
+        max_tokens: 600,
+        reasoning_effort: "low"
       })
     },
     Math.min(GEMINI_TIMEOUT_MS, timeoutMs)
